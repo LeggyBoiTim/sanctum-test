@@ -1,3 +1,8 @@
-<template> 
-    <h1>Hello World!</h1>
+<template>
+    <nav>
+        <RouterLink to="/">Home</RouterLink>
+         |
+        <RouterLink to="/login">Login</RouterLink>
+    </nav>
+    <router-view></router-view>
 </template>
