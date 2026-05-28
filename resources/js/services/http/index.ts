@@ -4,6 +4,7 @@ import { destroyErrors, destroyMessage, setErrorBag, setMessage } from "../error
 const http = axios.create({
     baseURL: '/api',
     headers: {
+        "Accept": "application/json",
         "Content-Type": "application/json",
     }
 });

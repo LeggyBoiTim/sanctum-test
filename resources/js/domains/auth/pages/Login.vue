@@ -8,6 +8,11 @@ import { useRouter } from 'vue-router';
 import { createAuth } from '../store';
 import Form from '../components/Form.vue';
 import { ref } from 'vue';
+import axios from 'axios';
+
+axios.get('/sanctum/csrf-cookie').then(response => {
+    // Login
+});
 
 const router = useRouter();
 
