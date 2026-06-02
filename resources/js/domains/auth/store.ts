@@ -1,5 +1,5 @@
 import { ref } from "vue";
-import { deleteRequest, postRequest } from "../../services/http";
+import { deleteRequest, getRequest, postRequest } from "../../services/http";
 
 const state = ref({
     user: null,
@@ -7,6 +7,19 @@ const state = ref({
 });
 
 export const getAuth = () => state.value;
+
+export const fetchUser = async () => {
+    try {
+        const { data } = await getRequest('user');
+        if (data?.user) {
+            state.value.user = data.user;
+            state.value.isAuthenticated = true;
+        }
+    } catch {
+        state.value.user = null;
+        state.value.isAuthenticated = false;
+    }
+};
 
 export const createAuth = async (credentials) => {
     const { data } = await postRequest('auth', credentials);
@@ -21,24 +34,3 @@ export const deleteAuth = async () => {
     state.value.user = null;
     state.value.isAuthenticated = false;
 };
-
-
-
-// import { storeModuleFactory } from '../../services/store';
-// import { onMounted } from 'vue';
-
-// const authStore = storeModuleFactory('auth');
-
-// authStore.actions.getAll();
-
-// // getters
-// export const getAuth = authStore.getters.all;
-
-// // actions
-// export const createAuth = async (newAuth) => {
-//     await authStore.actions.create(newAuth);
-// };
-
-// export const deleteAuth = async (id) => {
-//     await authStore.actions.delete(id);
-// };
