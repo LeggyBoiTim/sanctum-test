@@ -1,15 +1,14 @@
 <script setup lang="ts">
-import { deleteAuth } from './domains/auth/store';
+import { deleteAuth, getAuth } from './domains/auth/store';
 
+const auth = getAuth();
 </script>
 
 <template>
     <nav>
-        <RouterLink to="/">Home</RouterLink>
-         |
-        <RouterLink to="/login">Login</RouterLink>
-         | 
-        <button @click="deleteAuth()" style="cursor: pointer;">Verwijder</button>
+        <RouterLink to="/">Home </RouterLink>
+        <RouterLink v-if="!auth.isAuthenticated" to="/login">| Login </RouterLink>
+        <button v-if="auth.isAuthenticated" @click="deleteAuth()" style="cursor: pointer;">| Logout </button>
     </nav>
     <router-view></router-view>
 </template>
